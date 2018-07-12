@@ -1,0 +1,67 @@
+
+
+\documentclass{cv}
+
+% \usepackage{showframe}
+\renewcommand{\enframe}{no}
+
+% See https://www.sharelatex.com/learn/Using_colours_in_LaTeX
+% See https://en.wikipedia.org/wiki/List_of_colors:_A%E2%80%93F
+\definecolor{colorSection}{rgb}{0.97, 0.77, 0.56}
+
+\newcommand{\sectionSeparator}[1]{
+   \begin{tcolorbox}[notitle,
+                     boxrule=0pt,
+                     top=2pt,
+                     bottom=2pt,
+                     halign=center,
+                     valign=center,
+                     width=\textwidth,
+                     colback={colorSection}]
+      #1
+   \end{tcolorbox}\leavevmode 
+}
+
+% ---------------------------------------------------------------------------
+% HEADER
+% ---------------------------------------------------------------------------
+
+\DeclareTextFontCommand{\fontIdentity}{\setmainfont[Ligatures=TeX]{LMRoman6-Regular}}
+\newcommand{\identity}[2]{\fontIdentity{#1 #2}}
+\newcommand{\addressFirst}[1]{#1}
+\newcommand{\addressSecond}[1]{#1}
+\newcommand{\tel}[1]{#1}
+\newcommand{\email}[2]{#1@#2}
+\newcommand{\website}[1]{#1}
+\newcommand{\drivingLicense}[1]{#1}
+
+\newenvironment{headerEnv}{%
+   \setmainfont[Ligatures=TeX]{LMRoman6-Regular}%
+}
+
+\begin{document}
+
+   % ------------------------------------------------------------------------
+   % HEADER
+   % ------------------------------------------------------------------------
+
+   \begin{headerEnv}%
+      \identity{Denis}{BEURIVE} \newline
+      \vspace{3pt} \leavevmode\newline
+      % See https://tex.stackexchange.com/questions/128127/fix-column-width-with-tabularx
+      \begin{tabularx}{\textwidth}{cc>{\raggedright\arraybackslash}X>{\raggedleft\arraybackslash}X}
+          \faMapMarker & ~ & \addressFirst{12 av Anatole France} & 45 ans \\
+                       & ~ & \addressSecond{92110 Clichy}        & Nationalité française \\
+          \faPhone     & ~ & \tel{06 37 78 68 09}                & Célibataire, sans enfant \\
+          \faAt        & ~ & \email{denis.beurive}{gmail.com}    & \\
+          \faFirefox   & ~ & \website{http://www.beurive.com}    & \\
+          \faCar       & ~ & Permis B \\                         & \\
+      \end{tabularx}%
+   \end{headerEnv}%
+
+   \sectionSeparator{Langages}
+
+   aaaa
+
+
+\end{document}
