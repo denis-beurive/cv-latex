@@ -22,6 +22,11 @@
    \end{tcolorbox}\leavevmode 
 }
 
+\newenvironment{quotenv}{%
+   \setmainfont[Ligatures=TeX]{Accanthis ADF Std Italic}
+   \small
+}
+
 % ---------------------------------------------------------------------------
 % HEADER
 % ---------------------------------------------------------------------------
@@ -38,6 +43,28 @@
 \newenvironment{headerEnv}{%
    \setmainfont[Ligatures=TeX]{LMRoman6-Regular}%
 }
+
+% ---------------------------------------------------------------------------
+% TABLES
+% ---------------------------------------------------------------------------
+
+% This command defines the background color of the first line of the table (that is, the header).
+\definecolor{colorHeader}{rgb}{0.77, 0.77, 0.56}
+
+% This command applies the required style to the text that appears in the table header.
+\newcommand{\tableHd}[1]{%
+   \textbf{#1}
+}%
+
+% We define a column type for tabularx.
+% This type centers the content of a cell.
+% See https://tex.stackexchange.com/questions/89166/centering-in-tabularx-and-x-columns
+\newcolumntype{C}{>{\centering\arraybackslash}X}
+
+
+
+
+
 
 \begin{document}
 
@@ -59,9 +86,71 @@
       \end{tabularx}%
    \end{headerEnv}%
 
+   % ------------------------------------------------------------------------
+   % LANGAGES
+   % ------------------------------------------------------------------------
+   
    \sectionSeparator{Langages}
 
-   aaaa
+   \begin{quotenv}
+       La pratique d'un grand nombre de langages de programmation reflète mon expérience sur des problématiques et des
+       environnements variés, caractérisés par des contraintes et des paradigmes également variés. Le choix du langage
+       adapté est une des clés du succès.
+   \end{quotenv}
+   \vspace{10pt}
 
+   \begin{tabularx}{\textwidth}{|X|X|X|C|}
+       \hline 
+       \rowcolor{colorHeader}
+       \tableHd{Langage} & \tableHd{Niveau} & \tableHd{Expérience} & \tableHd{Opérationnel} \\
+       \hline 
+       PHP5/7        & Expert             & 20 ans & \faBatteryFull \\
+       \hline
+       Perl5         & Expert             & 20 ans & \faBatteryFull  \\
+       \hline
+       C             & Expert             & 10 ans & \faBatteryThreeQuarters \\
+       \hline
+       JavaScript    & Bonne connaissance & 3 ans  & \faBatteryThreeQuarters \\
+       \hline
+       GO            & Bonne connaissance & 1 ans  & \faBatteryThreeQuarters \\
+       \hline
+       Python        & Notions            & 6 mois & \faBatteryHalf \\
+       \hline
+       Java          & Bonne connaissance & 3 ans  & \faBatteryHalf \\
+       \hline
+       C++           & Ancien expert      & 4 ans  & \faBatteryQuarter \\
+       \hline
+       TCL           & Notions            & 6 mois & \faBatteryQuarter \\
+       \hline
+       ActionScript  & Ancien expert      & 1 an   & \faBatteryEmpty \\
+       \hline
+   \end{tabularx}%
+
+   % ------------------------------------------------------------------------
+   % FRAMEWORKS
+   % ------------------------------------------------------------------------
+
+   \sectionSeparator{Frameworks}
+
+   \begin{tabularx}{\textwidth}{|X|X|X|C|}
+       \hline 
+       \rowcolor{colorHeader}
+       \tableHd{Framework} & \tableHd{Type} & \tableHd{Langage} & \tableHd{Niveau actuel} \\
+       \hline 
+       Zend V1             & MVC            & PHP               & \faThumbsOUp \\
+       \hline 
+       Slim V3             & MVC            & PHP               & \faThumbsOUp \\
+       \hline 
+       Dancer              & MVC            & Perl5             & \faThumbsOUp \\
+       \hline 
+       JQuery              & DOM+Event      & JavaScript        & \faThumbsOUp \\
+       \hline 
+       ELGG                & MVC+Social     & PHP               & \faThumbsODown \\
+       \hline 
+       Adobe Flex 3        & FEWA           & ActionScript      & \faThumbsODown \\
+       \hline 
+       AngularJS V1.5      & FEWA           & JavaScript        & \faThumbsODown \\
+       \hline 
+   \end{tabularx}%
 
 \end{document}

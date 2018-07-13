@@ -2,6 +2,7 @@
 
 \NeedsTeXFormat{LaTeX2e}
 \ProvidesClass{cv}[1995/10/30 Standard LaTeX minimal class]
+\LoadClass{article}
 
 % [geometry] This package provides a flexible and easy interface to page dimensions.
 \usepackage[a4paper,
@@ -30,9 +31,14 @@
 % See ftp://ftp.dante.de/tex-archive/fonts/fontawesome/doc/fontawesome.pdf
 \usepackage{fontawesome}
 
-% \usepackage[svgnames]{xcolor}
+% This package allows the use of formatting features that are required to draw tables.
+\usepackage{array}
+
 \usepackage[usenames, dvipsnames]{color}
 \usepackage{tabularx}
+\usepackage{colortbl}
+
+% This package is really awasome.
 \usepackage{tcolorbox}
 
 
@@ -64,8 +70,6 @@
         \parbox{#1}{#2}%
     }%
 }%
-
-
 
 \setlength{\parindent}{0pt}
 \setlength{\fboxsep}{0pt}
