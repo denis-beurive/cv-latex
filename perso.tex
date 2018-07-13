@@ -3,13 +3,15 @@
 \documentclass{cv}
 
 % \usepackage{showframe}
-\renewcommand{\enframe}{no}
+\renewcommand{\enframe}{yes}
 
 % See https://www.sharelatex.com/learn/Using_colours_in_LaTeX
 % See https://en.wikipedia.org/wiki/List_of_colors:_A%E2%80%93F
 \definecolor{colorSection}{rgb}{0.97, 0.77, 0.56}
 
+% Define the element that reprsents the start of a section.
 \newcommand{\sectionSeparator}[1]{
+   \vspace{10pt}
    \begin{tcolorbox}[notitle,
                      boxrule=0pt,
                      top=2pt,
@@ -19,12 +21,22 @@
                      width=\textwidth,
                      colback={colorSection}]
       #1
-   \end{tcolorbox}\leavevmode 
+   \end{tcolorbox}
+   \vspace{10pt}
 }
 
+% This environment sets the required configuration for a quote.
 \newenvironment{quotenv}{%
    \setmainfont[Ligatures=TeX]{Accanthis ADF Std Italic}
    \small
+}
+
+% This command declare a text as a quote.
+\newcommand{\quoteit}[1]{
+   \begin{quotenv}
+   #1
+   \end{quotenv}
+   \vspace{10pt}
 }
 
 % ---------------------------------------------------------------------------
@@ -82,9 +94,10 @@
           \faPhone     & ~ & \tel{06 37 78 68 09}                & Célibataire, sans enfant \\
           \faAt        & ~ & \email{denis.beurive}{gmail.com}    & \\
           \faFirefox   & ~ & \website{http://www.beurive.com}    & \\
-          \faCar       & ~ & Permis B \\                         & \\
+          \faCar       & ~ & Permis B                            & \\
       \end{tabularx}%
    \end{headerEnv}%
+   
 
    % ------------------------------------------------------------------------
    % LANGAGES
@@ -92,12 +105,9 @@
    
    \sectionSeparator{Langages}
 
-   \begin{quotenv}
-       La pratique d'un grand nombre de langages de programmation reflète mon expérience sur des problématiques et des
+   \quoteit{La pratique d'un grand nombre de langages de programmation reflète mon expérience sur des problématiques et des
        environnements variés, caractérisés par des contraintes et des paradigmes également variés. Le choix du langage
-       adapté est une des clés du succès.
-   \end{quotenv}
-   \vspace{10pt}
+       adapté est une des clés du succès.}
 
    \begin{tabularx}{\textwidth}{|X|X|X|C|}
        \hline 
@@ -132,6 +142,11 @@
 
    \sectionSeparator{Frameworks}
 
+   \quoteit{Il y a plusieurs types de frameworks qui implémentent des "philosophies", et des "approches", diverses,
+       à des niveaux différents. Il n'existe pas de frameworks "adaptés à tous les projets". Ils n'existent que des
+       frameworks plus ou moins adaptés à des contextes d'utilisation. Le choix d'un framework adapté est une des clés
+       de la réussite.}
+
    \begin{tabularx}{\textwidth}{|X|X|X|C|}
        \hline 
        \rowcolor{colorHeader}
@@ -147,10 +162,28 @@
        \hline 
        ELGG                & MVC+Social     & PHP               & \faThumbsODown \\
        \hline 
-       Adobe Flex 3        & FEWA           & ActionScript      & \faThumbsODown \\
+       Adobe Flex 3        & FEWA*          & ActionScript      & \faThumbsODown \\
+       \hline
+       AngularJS V1.5      & FEWA*          & JavaScript        & \faThumbsODown \\
        \hline 
-       AngularJS V1.5      & FEWA           & JavaScript        & \faThumbsODown \\
-       \hline 
-   \end{tabularx}%
+   \end{tabularx}
+   \vspace{10pt}
+
+   FEWA = Front-End Web Application
+
+   % ------------------------------------------------------------------------
+   % FUNCTIONAL
+   % ------------------------------------------------------------------------
+
+   \sectionSeparator{Compétences métier}
+
+   % http://borntocode.fr/latex-customisation-de-listes-a-puces/
+   \begin{itemize}
+      \setlength\itemsep{1pt}
+      \item Choix technologiques.
+      \item Architecture logicielle.
+      \item Architecture système.
+   \end{itemize}
+
 
 \end{document}

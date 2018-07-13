@@ -37,6 +37,7 @@
 \usepackage[usenames, dvipsnames]{color}
 \usepackage{tabularx}
 \usepackage{colortbl}
+\usepackage{enumitem}
 
 % This package is really awasome.
 \usepackage{tcolorbox}
