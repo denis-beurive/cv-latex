@@ -37,11 +37,13 @@
 \usepackage[usenames, dvipsnames]{color}
 \usepackage{tabularx}
 \usepackage{colortbl}
+
+% This package provides flexibility for fine-tuning the enumerated lists.
+% See https://texfaq.org/FAQ-complist
 \usepackage{enumitem}
 
 % This package is really awasome.
 \usepackage{tcolorbox}
-
 
 
 % This package allows simple TF THEN ELSE constructions.

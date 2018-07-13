@@ -39,6 +39,22 @@
    \vspace{10pt}
 }
 
+\newenvironment{packed_enum}{
+   \begin{itemize}[topsep=0pt, itemsep=1pt, parsep=0pt, partopsep=0pt]%
+   % \begin{itemize}[topsep=0pt, itemsep=1pt, parsep=0pt]%
+}{\end{itemize}}
+
+\newenvironment{packed_tabular}{
+   \setlength{\tabcolsep}{0pt}
+}
+
+
+\newenvironment{absolutelynopagebreak}{
+  \par\nobreak\vfil\penalty0\vfilneg
+  \vtop\bgroup
+}{\par\xdef\tpd{\the\prevdepth}\egroup\prevdepth=\tpd}
+
+
 % ---------------------------------------------------------------------------
 % HEADER
 % ---------------------------------------------------------------------------
@@ -178,12 +194,38 @@
    \sectionSeparator{Compétences métier}
 
    % http://borntocode.fr/latex-customisation-de-listes-a-puces/
-   \begin{itemize}
-      \setlength\itemsep{1pt}
+   \begin{packed_enum}
       \item Choix technologiques.
       \item Architecture logicielle.
       \item Architecture système.
-   \end{itemize}
+      \item Conception de systèmes capables de monter en charge (scalable).
+      \item Conception de systèmes robustes (qui conservent un comportement déterministe, même en dehors de la plage d’utilisation nominale pour laquelle ils sont dimensionnés).
+      \item Conception de systèmes « transparents » (conçus, dès le départ, pour être supervisés).
+      \item WEB
+   \end{packed_enum}
+
+   % ------------------------------------------------------------------------
+   % PROFESSIONAL EXPERIENCE
+   % ------------------------------------------------------------------------
+
+   % https://stackoverflow.com/questions/4003473/make-an-unbreakable-block-in-tex
+   \begin{absolutelynopagebreak}
+      \sectionSeparator{Expérience professionnelle}
+
+      \begin{packed_tabular}
+         \begin{tabular}{lclclclll}
+             09/ & 2016 & ~ & \multicolumn{2}{l}{à ce jour} & :~ & \textbf{Kertios} & ~ &%
+                 Architecte + Ingénieur d'étude et développement \\
+             09/ & 2013 & ~ & 07/ & 2015                    & :~ & \textbf{Ijenko} & ~ &%
+                 Architecte + Ingénieur d'étude et développement \\
+             09/ & 2013 & ~ & 07/ & 2015                    & :~ & \textbf{Ijenko} & ~ &%
+                 Architecte + Ingénieur d'étude et développement \\
+             09/ & 2013 & ~ & 07/ & 2015                    & :~ & \textbf{Ijenko} & ~ &%
+                 Architecte + Ingénieur d'étude et développement \\
+         \end{tabular}%
+      \end{packed_tabular}%
+   \end{absolutelynopagebreak}%
+
 
 
 \end{document}
