@@ -7,6 +7,9 @@
 % See https://tex.stackexchange.com/questions/440462/hline-does-not-produce-anything/440468#440468
 \LoadClass{article}
 
+% This packages allows the use of key/value parameters for commands.
+\usepackage{xargs}
+
 % Adds in­fix ex­pres­sions to per­form arith­metic on the ar­gu­ments of the LaTeX com­mands \set­counter,
 % \ad­dto­counter, \setlength, and \ad­dtolength. 
 % See https://ctan.org/pkg/calc
