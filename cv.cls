@@ -2,7 +2,15 @@
 
 \NeedsTeXFormat{LaTeX2e}
 \ProvidesClass{cv}[1995/10/30 Standard LaTeX minimal class]
+
+% The class "article" defines many important things.
+% See https://tex.stackexchange.com/questions/440462/hline-does-not-produce-anything/440468#440468
 \LoadClass{article}
+
+% Adds in­fix ex­pres­sions to per­form arith­metic on the ar­gu­ments of the LaTeX com­mands \set­counter,
+% \ad­dto­counter, \setlength, and \ad­dtolength. 
+% See https://ctan.org/pkg/calc
+\usepackage{calc}
 
 % [geometry] This package provides a flexible and easy interface to page dimensions.
 \usepackage[a4paper,
@@ -35,7 +43,11 @@
 \usepackage{array}
 
 \usepackage[usenames, dvipsnames]{color}
+
+% This package creates tables that stretch.
 \usepackage{tabularx}
+
+% This package is used to define colors within a table (background colors and lines colors).
 \usepackage{colortbl}
 
 % This package provides flexibility for fine-tuning the enumerated lists.
@@ -44,7 +56,6 @@
 
 % This package is really awasome.
 \usepackage{tcolorbox}
-
 
 % This package allows simple TF THEN ELSE constructions.
 \usepackage{ifthen}
