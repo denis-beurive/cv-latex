@@ -23,7 +23,6 @@
 \newlength{\interSectionTitleContentLength}
 \setlength{\interSectionTitleContentLength}{8pt}%
 
-
 % ---------------------------------------------------------------------------------
 % Set colors.
 % ---------------------------------------------------------------------------------
@@ -35,6 +34,15 @@
 \definecolor{colorVerticalTableLines}{rgb}{0.639, 0.639, 0.639}
 
 % ---------------------------------------------------------------------------------
+% Set fonts.
+% ---------------------------------------------------------------------------------
+
+\newcommand{\fontIdentityDef}{\setmainfont[Ligatures=TeX]{LMRoman6-Regular}}
+\newcommand{\fontPrivateDef}{\setmainfont[Ligatures=TeX]{LMRoman6-Regular}}
+\newcommand{\fontQuoteDef}{\setmainfont[Ligatures=TeX]{Accanthis ADF Std Italic}\small}
+\newcommand{\fontTechnoDef}{\setmainfont[Ligatures=TeX]{Ubuntu Mono}}
+
+% ---------------------------------------------------------------------------------
 % Define the elements that compose a section.
 % - The section title.
 % - The section content.
@@ -42,7 +50,7 @@
 
 % Define the zone that prints the title of the section.
 \newcommand{\mainSectionSeparator}[1]{
-   \vspace{10pt}
+   \vspace{10pt}\par%
    \begin{tcolorbox}[notitle,
                      nobeforeafter, % See https://mirror.hmc.edu/ctan/macros/latex/contrib/tcolorbox/tcolorbox.pdf
                      boxrule=0pt,
@@ -53,23 +61,24 @@
                      width=\textwidth,
                      colback={colorSection}]%
       #1%
-   \end{tcolorbox}
-
+   \end{tcolorbox}%
+   \par%
 }%
 
 % Define the content of a section.
 \newenvironment{sectionContent}{
-   { \vspace{\interSectionTitleContentLength} }
+   \vspace{\interSectionTitleContentLength}\par%
+}{%
+   \par%
 }%
 
 % ---------------------------------------------------------------------------------
-% Define the element that represents the start of a section that presents the 
+% Define the element that represents the start of a sub-section that presents the 
 % realisation for a company.
 % ---------------------------------------------------------------------------------
 
 \newcommand{\sectionCompany}[1]{ 
-
-   \vspace{10pt}
+   \vspace{10pt}\par%
    \hspace{\companySectionIndentLength}\begin{tcolorbox}[notitle,
                       nobeforeafter, % See https://mirror.hmc.edu/ctan/macros/latex/contrib/tcolorbox/tcolorbox.pdf
                       bottomrule=2pt,
@@ -84,22 +93,24 @@
                       width=\textwidth-\companySectionIndentLength]%
        #1%
    \end{tcolorbox}%
+   \par%
 }%
 
 % ---------------------------------------------------------------------------------
 % Define commands for general text formatting.
 % ---------------------------------------------------------------------------------
 
-% This environment sets the required configuration for a quote.
+% This environment sets the required configuration for a quotation.
 \newenvironment{quotenv}{%
-   \setmainfont[Ligatures=TeX]{Accanthis ADF Std Italic}
-   \small
-}
+   \fontQuoteDef
+}{}
 
+% This environment sets the required configuration for the rendering of a technical term.
 \newenvironment{technoenv}{%
-   \setmainfont[Ligatures=TeX]{Ubuntu Mono}
-}
+   \fontTechnoDef
+}{}
 
+% This command prints a technical term.
 \newcommand{\techno}[1]{%
    \begin{technoenv}%
    #1% 
@@ -110,26 +121,28 @@
 \newcommand{\quoteit}[1]{%
    \begin{quotenv}%
    #1%
-   \end{quotenv}%
-   \vspace{10pt}
+   \end{quotenv}\par%
+   \vspace{10pt}\par%
 }
 
-% This environment can be used to present a quoted text.
+% This environment prints a "packed list of items".
 \newenvironment{packed_enum}{
    \begin{itemize}[topsep=0pt, itemsep=1pt, parsep=0pt, partopsep=0pt]%
 }{\end{itemize}}
 
-% This command prints a quoted text.
+% This command prints "packed tables".
 \newenvironment{packed_tabular}{
    \setlength{\tabcolsep}{0pt}
-}
+}{}
 
 % Make sure that the content inserted within this environment is printed on one page.
 % https://stackoverflow.com/questions/4003473/make-an-unbreakable-block-in-tex
 \newenvironment{absolutelynopagebreak}{
-  \par\nobreak\vfil\penalty0\vfilneg
-  \vtop\bgroup
-}{\par\xdef\tpd{\the\prevdepth}\egroup\prevdepth=\tpd}
+   \par\nobreak\vfil\penalty0\vfilneg
+   \vtop\bgroup
+}{%
+   \par\xdef\tpd{\the\prevdepth}\egroup\prevdepth=\tpd%
+}
 
 % Format the name of a company.
 \newcommand{\cpname}[1]{%
@@ -145,7 +158,7 @@
 % Define formats for texts that appear in the header.
 % ---------------------------------------------------------------------------------
 
-\DeclareTextFontCommand{\fontIdentity}{\setmainfont[Ligatures=TeX]{LMRoman6-Regular}}
+\DeclareTextFontCommand{\fontIdentity}{\fontIdentityDef}
 \newcommand{\identity}[2]{\fontIdentity{#1 #2}}
 \newcommand{\addressFirst}[1]{#1}
 \newcommand{\addressSecond}[1]{#1}
@@ -155,8 +168,8 @@
 \newcommand{\drivingLicense}[1]{#1}
 
 \newenvironment{headerEnv}{%
-   \setmainfont[Ligatures=TeX]{LMRoman6-Regular}%
-}
+   \fontPrivateDef%
+}{}
 
 % ---------------------------------------------------------------------------------
 % Define formats for texts that appear in tables.
@@ -176,7 +189,7 @@
 \newcolumntype{C}{>{\centering\arraybackslash}X}
 
 \newcommand{\realisationHeader}[2]{
-   \vspace{10pt}
+   \vspace{10pt}\par%
    \begin{tcolorbox}[notitle,
                      nobeforeafter, % See https://mirror.hmc.edu/ctan/macros/latex/contrib/tcolorbox/tcolorbox.pdf
                      bottomrule=0pt,
@@ -197,10 +210,13 @@
          \end{tabular}%
       \end{packed_tabular}%
    \end{tcolorbox}%
+   \par%
 }%
 
 \newenvironment{realisationEnv}{
    \setlength{\parskip}{1em}
+}{%
+   \par%
 }
 
 
