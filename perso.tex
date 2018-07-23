@@ -8,11 +8,21 @@
 % Set lengths.
 % ---------------------------------------------------------------------------------
 
-% The distance between the left margin and the start of the area that prints the 
-% name of the section.
+% The horizontal distance between the left margin and the start of the area that prints the 
+% name of the company.
 % |<left margin>|<---->|<company>
 \newlength{\companySectionIndentLength}
 \setlength{\companySectionIndentLength}{10pt}%
+
+% The vertical distance between the title of the section and the content of the section.
+%  <title>
+% ---------
+%           <- vertical distance  
+% ---------
+% <content>   
+\newlength{\interSectionTitleContentLength}
+\setlength{\interSectionTitleContentLength}{8pt}%
+
 
 % ---------------------------------------------------------------------------------
 % Set colors.
@@ -25,19 +35,13 @@
 \definecolor{colorVerticalTableLines}{rgb}{0.639, 0.639, 0.639}
 
 % ---------------------------------------------------------------------------------
-% Define the element that reprsents the start of a main section (languages, frame-
-% -work).
+% Define the elements that compose a section.
+% - The section title.
+% - The section content.
 % ---------------------------------------------------------------------------------
 
-% Usage:
-%
-% \mainSectionSeparator{<section name>}
-% or
-% \mainSectionSeparator{<section name>}{yes}
-%
-% The later command call adds a vertical space after the section.
-
-\newcommand{\mainSectionSeparator}[2]{
+% Define the zone that prints the title of the section.
+\newcommand{\mainSectionSeparator}[1]{
    \vspace{10pt}
    \begin{tcolorbox}[notitle,
                      nobeforeafter, % See https://mirror.hmc.edu/ctan/macros/latex/contrib/tcolorbox/tcolorbox.pdf
@@ -49,8 +53,13 @@
                      width=\textwidth,
                      colback={colorSection}]%
       #1%
-   \end{tcolorbox}%
-   \ifthenelse{\equal{#2}{yes}}{\vspace{10pt}}{}%
+   \end{tcolorbox}
+
+}%
+
+% Define the content of a section.
+\newenvironment{sectionContent}{
+   { \vspace{\interSectionTitleContentLength} }
 }%
 
 % ---------------------------------------------------------------------------------
@@ -220,151 +229,162 @@
    % LANGAGES
    % ------------------------------------------------------------------------
    
-   \mainSectionSeparator{Langages}{yes}
+   \mainSectionSeparator{Langages}
 
-   \quoteit{La pratique d'un grand nombre de langages de programmation reflète mon expérience sur des problématiques et des
-       environnements variés, caractérisés par des contraintes et des paradigmes également variés. Le choix du langage
-       adapté est une des clés du succès.}
+   \begin{sectionContent}
+      \quoteit{La pratique d'un grand nombre de langages de programmation reflète mon expérience sur des problématiques et des
+          environnements variés, caractérisés par des contraintes et des paradigmes également variés. Le choix du langage
+          adapté est une des clés du succès.}
+   
+      \begin{tabularx}{\textwidth}{|X|X|X|C|}
+   
+          \arrayrulecolor{colorHeader}    
+   
+          \hline 
+          \rowcolor{colorHeader}
+          \tableHd{Langage} & \tableHd{Niveau} & \tableHd{Expérience} & \tableHd{Opérationnel} \\
+   
+          \arrayrulecolor{colorVerticalTableLines}    
+   
+          \hline
+          PHP5/7        & Expert             & 20 ans & \faBatteryFull \\
+          \hline
+          Perl5         & Expert             & 20 ans & \faBatteryFull  \\
+          \hline
+          C             & Expert             & 10 ans & \faBatteryThreeQuarters \\
+          \hline
+          JavaScript    & Bonne connaissance & 3 ans  & \faBatteryThreeQuarters \\
+          \hline
+          GO            & Bonne connaissance & 1 ans  & \faBatteryThreeQuarters \\
+          \hline
+          Python        & Notions            & 6 mois & \faBatteryHalf \\
+          \hline
+          Java          & Bonne connaissance & 3 ans  & \faBatteryHalf \\
+          \hline
+          C++           & Ancien expert      & 4 ans  & \faBatteryQuarter \\
+          \hline
+          TCL           & Notions            & 6 mois & \faBatteryQuarter \\
+          \hline
+          ActionScript  & Ancien expert      & 1 an   & \faBatteryEmpty \\
+          \hline
+      \end{tabularx}%
 
-   \begin{tabularx}{\textwidth}{|X|X|X|C|}
-
-       \arrayrulecolor{colorHeader}    
-
-       \hline 
-       \rowcolor{colorHeader}
-       \tableHd{Langage} & \tableHd{Niveau} & \tableHd{Expérience} & \tableHd{Opérationnel} \\
-
-       \arrayrulecolor{colorVerticalTableLines}    
-
-       \hline
-       PHP5/7        & Expert             & 20 ans & \faBatteryFull \\
-       \hline
-       Perl5         & Expert             & 20 ans & \faBatteryFull  \\
-       \hline
-       C             & Expert             & 10 ans & \faBatteryThreeQuarters \\
-       \hline
-       JavaScript    & Bonne connaissance & 3 ans  & \faBatteryThreeQuarters \\
-       \hline
-       GO            & Bonne connaissance & 1 ans  & \faBatteryThreeQuarters \\
-       \hline
-       Python        & Notions            & 6 mois & \faBatteryHalf \\
-       \hline
-       Java          & Bonne connaissance & 3 ans  & \faBatteryHalf \\
-       \hline
-       C++           & Ancien expert      & 4 ans  & \faBatteryQuarter \\
-       \hline
-       TCL           & Notions            & 6 mois & \faBatteryQuarter \\
-       \hline
-       ActionScript  & Ancien expert      & 1 an   & \faBatteryEmpty \\
-       \hline
-   \end{tabularx}%
+   \end{sectionContent}
 
    % ------------------------------------------------------------------------
    % FRAMEWORKS
    % ------------------------------------------------------------------------
 
-   \mainSectionSeparator{Frameworks}{yes}
+   \mainSectionSeparator{Frameworks}
 
-   \quoteit{Il y a plusieurs types de frameworks qui implémentent des "philosophies", et des "approches", diverses,
-       à des niveaux différents. Il n'existe pas de frameworks "adaptés à tous les projets". Ils n'existent que des
-       frameworks plus ou moins adaptés à des contextes d'utilisation. Le choix d'un framework adapté est une des clés
-       de la réussite.}
-
-   \begin{tabularx}{\textwidth}{|X|X|X|C|}
-
-       \arrayrulecolor{colorHeader}    
-
-       \hline 
-       \rowcolor{colorHeader}
-       \tableHd{Framework} & \tableHd{Type} & \tableHd{Langage} & \tableHd{Niveau actuel} \\
-
-       \arrayrulecolor{colorVerticalTableLines}    
-
-       \hline 
-       Zend V1             & MVC            & PHP               & \faThumbsOUp \\
-       \hline 
-       Slim V3             & MVC            & PHP               & \faThumbsOUp \\
-       \hline 
-       Dancer              & MVC            & Perl5             & \faThumbsOUp \\
-       \hline 
-       JQuery              & DOM+Event      & JavaScript        & \faThumbsOUp \\
-       \hline 
-       ELGG                & MVC+Social     & PHP               & \faThumbsODown \\
-       \hline 
-       Adobe Flex 3        & FEWA*          & ActionScript      & \faThumbsODown \\
-       \hline
-       AngularJS V1.5      & FEWA*          & JavaScript        & \faThumbsODown \\
-       \hline 
-   \end{tabularx}
-   \vspace{10pt}
-
-   FEWA = Front-End Web Application
+   \begin{sectionContent}
+      \quoteit{Il y a plusieurs types de frameworks qui implémentent des "philosophies", et des "approches", diverses,
+          à des niveaux différents. Il n'existe pas de frameworks "adaptés à tous les projets". Ils n'existent que des
+          frameworks plus ou moins adaptés à des contextes d'utilisation. Le choix d'un framework adapté est une des clés
+          de la réussite.}
+   
+      \begin{tabularx}{\textwidth}{|X|X|X|C|}
+   
+          \arrayrulecolor{colorHeader}    
+   
+          \hline 
+          \rowcolor{colorHeader}
+          \tableHd{Framework} & \tableHd{Type} & \tableHd{Langage} & \tableHd{Niveau actuel} \\
+   
+          \arrayrulecolor{colorVerticalTableLines}    
+   
+          \hline 
+          Zend V1             & MVC            & PHP               & \faThumbsOUp \\
+          \hline 
+          Slim V3             & MVC            & PHP               & \faThumbsOUp \\
+          \hline 
+          Dancer              & MVC            & Perl5             & \faThumbsOUp \\
+          \hline 
+          JQuery              & DOM+Event      & JavaScript        & \faThumbsOUp \\
+          \hline 
+          ELGG                & MVC+Social     & PHP               & \faThumbsODown \\
+          \hline 
+          Adobe Flex 3        & FEWA*          & ActionScript      & \faThumbsODown \\
+          \hline
+          AngularJS V1.5      & FEWA*          & JavaScript        & \faThumbsODown \\
+          \hline 
+      \end{tabularx}
+      \vspace{10pt}
+   
+      FEWA = Front-End Web Application
+   \end{sectionContent}
 
    % ------------------------------------------------------------------------
    % FUNCTIONAL
    % ------------------------------------------------------------------------
 
-   \mainSectionSeparator{Compétences métier}{yes}
+   \mainSectionSeparator{Compétences métier}
 
-   % http://borntocode.fr/latex-customisation-de-listes-a-puces/
-   \begin{packed_enum}
-      \item Choix technologiques.
-      \item Architecture logicielle.
-      \item Architecture système.
-      \item Conception de systèmes capables de monter en charge (scalable).
-      \item Conception de systèmes robustes (qui conservent un comportement déterministe, même en dehors de la plage d’utilisation nominale pour laquelle ils sont dimensionnés).
-      \item Conception de systèmes « transparents » (conçus, dès le départ, pour être supervisés).
-      \item WEB
-   \end{packed_enum}
+   \begin{sectionContent}
+      % http://borntocode.fr/latex-customisation-de-listes-a-puces/
+      \begin{packed_enum}
+         \item Choix technologiques.
+         \item Architecture logicielle.
+         \item Architecture système.
+         \item Conception de systèmes capables de monter en charge (scalable).
+         \item Conception de systèmes robustes (qui conservent un comportement déterministe, même en dehors de la plage d’utilisation nominale pour laquelle ils sont dimensionnés).
+         \item Conception de systèmes « transparents » (conçus, dès le départ, pour être supervisés).
+         \item WEB
+      \end{packed_enum}
+   \end{sectionContent}
 
    % ------------------------------------------------------------------------
    % PROFESSIONAL EXPERIENCE
    % ------------------------------------------------------------------------
 
    \newpage
-   \mainSectionSeparator{Expérience professionnelle}{yes}
+   \mainSectionSeparator{Expérience professionnelle}
 
-   \begin{packed_tabular}
-      \begin{tabular}{lclclclll}
-         09/ & 2016 & ~ & \multicolumn{2}{l}{à ce jour} & ~ & \cpname{Kertios}     & ~ &%
-             Architecte + Ingénieur d'étude et développement \\
-         09/ & 2013 & ~ & 07/ & 2015                    & ~ & \cpname{Ijenko}      & ~ &%
-             Architecte + Ingénieur d'étude et développement \\
-         01/ & 2013 & ~ & 07/ & 2013                    & ~ & \cpname{Halys}       & ~ &%
-             Architecte + Ingénieur d'étude et développement \\
-         06/ & 2009 & ~ & 11/ & 2012                    & ~ & \cpname{Paritel}     & ~ &%
-             Architecte + Ingénieur d'étude et développement \\
-         08/ & 2008 & ~ & 06/ & 2009                    & ~ & \cpname{FREE}        & ~ &%   
-             Architecte + Ingénieur d'étude et développement \\
-         06/ & 2005 & ~ & 08/ & 2008                    & ~ & \cpname{Alice ADSL}  & ~ &%
-             Architecte + Ingénieur d'étude et développement \\
-         09/ & 2001 & ~ & 06/ & 2005                    & ~ & \cpname{LibertySurf} & ~ &%
-             Architecte + Ingénieur d'étude et développement \\
-         03/ & 1999 & ~ & 09/ & 2000                    & ~ & \cpname{Cetia Inc}*  & ~ &%
-             Architecte + Ingénieur d'étude et développement \\
-         06/ & 1998 & ~ & 01/ & 1999                    & ~ & \cpname{STERIA}      & ~ &%
-             Architecte + Ingénieur d'étude et développement \\
-      \end{tabular}%
-   \end{packed_tabular}%
-
-   \vspace{10pt}
-
-   \cpname{Cetia Inc} CETIA était le revendeur exclusif des produits Thales aux USA (Massachusetts). En 2000, Cetia a été englobé par Thales.
+   \begin{sectionContent}
+      \begin{packed_tabular}
+         \begin{tabular}{lclclclll}
+            09/ & 2016 & ~ & \multicolumn{2}{l}{à ce jour} & ~ & \cpname{Kertios}     & ~ &%
+                Architecte + Ingénieur d'étude et développement \\
+            09/ & 2013 & ~ & 07/ & 2015                    & ~ & \cpname{Ijenko}      & ~ &%
+                Architecte + Ingénieur d'étude et développement \\
+            01/ & 2013 & ~ & 07/ & 2013                    & ~ & \cpname{Halys}       & ~ &%
+                Architecte + Ingénieur d'étude et développement \\
+            06/ & 2009 & ~ & 11/ & 2012                    & ~ & \cpname{Paritel}     & ~ &%
+                Architecte + Ingénieur d'étude et développement \\
+            08/ & 2008 & ~ & 06/ & 2009                    & ~ & \cpname{FREE}        & ~ &%   
+                Architecte + Ingénieur d'étude et développement \\
+            06/ & 2005 & ~ & 08/ & 2008                    & ~ & \cpname{Alice ADSL}  & ~ &%
+                Architecte + Ingénieur d'étude et développement \\
+            09/ & 2001 & ~ & 06/ & 2005                    & ~ & \cpname{LibertySurf} & ~ &%
+                Architecte + Ingénieur d'étude et développement \\
+            03/ & 1999 & ~ & 09/ & 2000                    & ~ & \cpname{Cetia Inc}*  & ~ &%
+                Architecte + Ingénieur d'étude et développement \\
+            06/ & 1998 & ~ & 01/ & 1999                    & ~ & \cpname{STERIA}      & ~ &%
+                Architecte + Ingénieur d'étude et développement \\
+         \end{tabular}%
+      \end{packed_tabular}%
+   
+      \vspace{10pt}
+   
+      \cpname{Cetia Inc} CETIA était le revendeur exclusif des produits Thales aux USA (Massachusetts). En 2000, Cetia a été englobé par Thales.
+   \end{sectionContent}
 
    % ------------------------------------------------------------------------
    % FORMATION
    % ------------------------------------------------------------------------
 
-   \mainSectionSeparator{Formation}{yes}
+   \mainSectionSeparator{Formation}
 
-   \begin{packed_tabular}
-      \begin{tabular}{lclclcl}
-         \school{DESS "Ingénierie des Systèmes Informatiques"} & ~ & BAC+5 & ~ & 1998 & ~ &%
-              Université Pierre-et-Marie-Curie \\
-         \school{Maîtrise de physique et applications}         & ~ & BAC+4 & ~ & 1997 & ~ &%
-              Université Pierre-et-Marie-Curie \\
-      \end{tabular}%
-   \end{packed_tabular}%
+   \begin{sectionContent}
+      \begin{packed_tabular}
+         \begin{tabular}{lclclcl}
+            \school{DESS "Ingénierie des Systèmes Informatiques"} & ~ & BAC+5 & ~ & 1998 & ~ &%
+                 Université Pierre-et-Marie-Curie \\
+            \school{Maîtrise de physique et applications}         & ~ & BAC+4 & ~ & 1997 & ~ &%
+                 Université Pierre-et-Marie-Curie \\
+         \end{tabular}%
+      \end{packed_tabular}%
+   \end{sectionContent}
 
    % ------------------------------------------------------------------------
    % PROJECTS
@@ -372,51 +392,53 @@
 
    \mainSectionSeparator{Projets}
 
-   \sectionCompany{Kertios}
-
-   \realisationHeader{6 mois}{\techno{Linux}, \techno{PHP7}, \techno{RabbitMQ}}
-
-   \begin{realisationEnv}
-      Développement d'un outil qui permet de construire un graphe de dépendances à partir d'une liste de formules mathématiques qui dépendent les
-      unes des autres.
-
-      Développement d'un moteur qui parallélise les calculs d'un ensemble de formules mathématiques, compte tenu d'un graphe de dépendances.
-      Notre moteur est 20 fois plus rapide que le moteur d'origine. Indépendamment des données fournies au moteur (les formules mathématiques),
-      le potentiel d'accélération est virtuellement illimité. Dans la pratique, le potentiel d'accélération dépend des données fournies au moteur,
-      car ces données (les formules mathématiques) déterminent le nombre moyen de calculs pouvant être exécutés en parallèle.
-   \end{realisationEnv}
-
-   \realisationHeader{18 mois}{\techno{AIX}, \techno{Linux}, \techno{PHP7}, \techno{Perl5}, \techno{JavaScript}, \techno{SQLite}, \techno{TCL-TK}, \techno{KSH}, \techno{BASH}, \techno{jQuery}, \techno{Chart.js}}
-
-   \begin{realisationEnv}
-      Assurer les migrations d'UNICENTER (Computer Associates) vers CONTROLM (BMC Software) et de PELICAN (Axway) vers CFT (Axway). OS : AIX 7.2
-      et linux.
-
-      Développement d'un outil permettant de convertir un jeu de configurations PELICAN en configurations CFT. Cet outil vérifie la cohérence des
-      données de configuration sur l'ensemble de configurations présentées en entrée (vérifications croisées). il détecte également toutes les
-      mauvaises pratiques. Technologies utilisées : Perl et SQLite.
-
-      Développement d'un outil permettant de convertir une configuration CONTROLM (XML) afin de l'adapter à de nouveaux environnements fonctionnels.
-      Cet outil vérifie la cohérence des données de configuration et détecte des problèmes spécifiques à la plateforme du client (boucles...).
-      Technologies utilisées : PHP7, TCL-TK, SQLite.
-
-      Développement d'un convertisseur à la volée de commandes PELICAN en commande CFT. Ce convertisseur remplace le client PELICAN sur les serveurs
-      (AIX et Linux) : il permet la migration de millions de lignes de code KSH de PELICAN vers CFT sans modifier un seul script. Ce convertisseur
-      peut être configuré pour définir des exceptions (certains appels PELICAN sont effectués via PELICAN), en fonctions de plusieurs critères.
-      Technologies utilisées : KSH (99\%) et Perl (1\%). 
-
-      Développement d'un convertisseur à la volée de commandes UNICENTER en commande CONTROLM. Ce convertisseur remplace le client UNICENTER sur
-      les serveurs (AIX et Linux) : il permet la migration de millions de lignes de code KSH de UNICENTER vers CONTROLM sans modifier un seul script.
-      Technologies utilisées : KSH (99\%) et Perl (1\%).
-
-      Développement d'un analyseur de LOG PELICAN destiné à produire une cartographie des flux sur la plateforme du client. Cet outil peut être
-      couplé au convertisseur de configuration PELICAN en configuration CFT afin de détecter des configurations non utilisées. Technologies
-      utilisées : Perl et SQLite.
-
-      Développement d'un outil de supervision pour IBM Tivoli Storage Manager (TSM). Cet outil injecte les données extraites des LOG TSM dans une
-      base de données SQLite et génère des rapports journaliers au format HTML (qui peuvent être consultés via HTTP). Technologies utilisées :
-      Perl5, JavaScript, JQuery, Chart.js.
-
-   \end{realisationEnv}
+   \begin{sectionContent}
+      \sectionCompany{Kertios}
+   
+      \realisationHeader{6 mois}{\techno{Linux}, \techno{PHP7}, \techno{RabbitMQ}}
+   
+      \begin{realisationEnv}
+         Développement d'un outil qui permet de construire un graphe de dépendances à partir d'une liste de formules mathématiques qui dépendent les
+         unes des autres.
+   
+         Développement d'un moteur qui parallélise les calculs d'un ensemble de formules mathématiques, compte tenu d'un graphe de dépendances.
+         Notre moteur est 20 fois plus rapide que le moteur d'origine. Indépendamment des données fournies au moteur (les formules mathématiques),
+         le potentiel d'accélération est virtuellement illimité. Dans la pratique, le potentiel d'accélération dépend des données fournies au moteur,
+         car ces données (les formules mathématiques) déterminent le nombre moyen de calculs pouvant être exécutés en parallèle.
+      \end{realisationEnv}
+   
+      \realisationHeader{18 mois}{\techno{AIX}, \techno{Linux}, \techno{PHP7}, \techno{Perl5}, \techno{JavaScript}, \techno{SQLite}, \techno{TCL-TK}, \techno{KSH}, \techno{BASH}, \techno{jQuery}, \techno{Chart.js}}
+   
+      \begin{realisationEnv}
+         Assurer les migrations d'UNICENTER (Computer Associates) vers CONTROLM (BMC Software) et de PELICAN (Axway) vers CFT (Axway). OS : AIX 7.2
+         et linux.
+   
+         Développement d'un outil permettant de convertir un jeu de configurations PELICAN en configurations CFT. Cet outil vérifie la cohérence des
+         données de configuration sur l'ensemble de configurations présentées en entrée (vérifications croisées). il détecte également toutes les
+         mauvaises pratiques. Technologies utilisées : Perl et SQLite.
+   
+         Développement d'un outil permettant de convertir une configuration CONTROLM (XML) afin de l'adapter à de nouveaux environnements fonctionnels.
+         Cet outil vérifie la cohérence des données de configuration et détecte des problèmes spécifiques à la plateforme du client (boucles...).
+         Technologies utilisées : PHP7, TCL-TK, SQLite.
+   
+         Développement d'un convertisseur à la volée de commandes PELICAN en commande CFT. Ce convertisseur remplace le client PELICAN sur les serveurs
+         (AIX et Linux) : il permet la migration de millions de lignes de code KSH de PELICAN vers CFT sans modifier un seul script. Ce convertisseur
+         peut être configuré pour définir des exceptions (certains appels PELICAN sont effectués via PELICAN), en fonctions de plusieurs critères.
+         Technologies utilisées : KSH (99\%) et Perl (1\%). 
+   
+         Développement d'un convertisseur à la volée de commandes UNICENTER en commande CONTROLM. Ce convertisseur remplace le client UNICENTER sur
+         les serveurs (AIX et Linux) : il permet la migration de millions de lignes de code KSH de UNICENTER vers CONTROLM sans modifier un seul script.
+         Technologies utilisées : KSH (99\%) et Perl (1\%).
+   
+         Développement d'un analyseur de LOG PELICAN destiné à produire une cartographie des flux sur la plateforme du client. Cet outil peut être
+         couplé au convertisseur de configuration PELICAN en configuration CFT afin de détecter des configurations non utilisées. Technologies
+         utilisées : Perl et SQLite.
+   
+         Développement d'un outil de supervision pour IBM Tivoli Storage Manager (TSM). Cet outil injecte les données extraites des LOG TSM dans une
+         base de données SQLite et génère des rapports journaliers au format HTML (qui peuvent être consultés via HTTP). Technologies utilisées :
+         Perl5, JavaScript, JQuery, Chart.js.
+   
+       \end{realisationEnv}
+   \end{sectionContent}
 
 \end{document}
