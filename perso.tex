@@ -25,13 +25,22 @@
 
 % ---------------------------------------------------------------------------------
 % Set colors.
+%
+% - colorTableHeader: the background color of the first line of a table.
+% - colorHorizontalTableLines: the color of the vertical lines within a table.
+% - colorMainSection: the background color of the box that materialises the start
+%   of a main section.
+% - colorCompanySection: the background color of the box that materialises the
+%   start of the section that presents the realisations for a
+%   given company.
 % ---------------------------------------------------------------------------------
 
 % See https://www.sharelatex.com/learn/Using_colours_in_LaTeX
 % See https://en.wikipedia.org/wiki/List_of_colors:_A%E2%80%93F
-\definecolor{colorSection}{rgb}{0.97, 0.77, 0.56}
+\definecolor{colorTableHeader}{rgb}{0.77, 0.77, 0.56}
+\definecolor{colorHorizontalTableLines}{rgb}{0.639, 0.639, 0.639}
+\definecolor{colorMainSection}{rgb}{0.97, 0.77, 0.56}
 \definecolor{colorCompanySection}{rgb}{0.525, 0.917, 0.603}
-\definecolor{colorVerticalTableLines}{rgb}{0.639, 0.639, 0.639}
 
 % ---------------------------------------------------------------------------------
 % Set fonts.
@@ -44,8 +53,20 @@
 
 % ---------------------------------------------------------------------------------
 % Define the elements that compose a section.
+%
 % - The section title.
-% - The section content.
+% - The subsection title that displays the name of a company.
+% - The subsection header that marks the start of a realisation. This header shows
+%   the duration of the realisation and the tools used.
+% - A (sub)section component. Please note that a (sub)section may be made of 
+%   several components.
+%
+% Notes:
+%
+% - each element is responsible for applying the required vertical space that
+%   separates it from the elements the precedes it.
+% - Each element is responsible for breaking the horizontal (or "paragraphe") mode
+%   at its bottom.
 % ---------------------------------------------------------------------------------
 
 % Define the zone that prints the title of the section.
@@ -54,140 +75,28 @@
    \begin{tcolorbox}[notitle,
                      nobeforeafter, % See https://mirror.hmc.edu/ctan/macros/latex/contrib/tcolorbox/tcolorbox.pdf
                      boxrule=0pt,
-                     top=2pt,
-                     bottom=2pt,
+                     top=1pt,
+                     bottom=1pt,
                      halign=center,
                      valign=center,
                      width=\textwidth,
-                     colback={colorSection}]%
+                     colback={colorMainSection}]%
       #1%
    \end{tcolorbox}%
    \par%
 }%
 
-% Define the content of a section.
-\newenvironment{sectionContent}{
+% Define the environment that applies to a section component.
+% Please note that a section may be made of several components.
+\newenvironment{sectionComponent}{
    \vspace{\interSectionTitleContentLength}\par%
 }{%
    \par%
 }%
 
-% ---------------------------------------------------------------------------------
-% Define the element that represents the start of a sub-section that presents the 
-% realisation for a company.
-% ---------------------------------------------------------------------------------
-
-\newcommand{\sectionCompany}[1]{ 
-   \vspace{10pt}\par%
-   \hspace{\companySectionIndentLength}\begin{tcolorbox}[notitle,
-                      nobeforeafter, % See https://mirror.hmc.edu/ctan/macros/latex/contrib/tcolorbox/tcolorbox.pdf
-                      bottomrule=2pt,
-                      toprule=0pt,
-                      leftrule=0pt,
-                      rightrule=0pt,
-                      top=0pt,
-                      bottom=0pt,
-                      halign=left,
-                      left=0pt,
-                      valign=center,
-                      width=\textwidth-\companySectionIndentLength]%
-       #1%
-   \end{tcolorbox}%
-   \par%
-}%
-
-% ---------------------------------------------------------------------------------
-% Define commands for general text formatting.
-% ---------------------------------------------------------------------------------
-
-% This environment sets the required configuration for a quotation.
-\newenvironment{quotenv}{%
-   \fontQuoteDef
-}{}
-
-% This environment sets the required configuration for the rendering of a technical term.
-\newenvironment{technoenv}{%
-   \fontTechnoDef
-}{}
-
-% This command prints a technical term.
-\newcommand{\techno}[1]{%
-   \begin{technoenv}%
-   #1% 
-   \end{technoenv}%
-}
-
-% This command declare a text as a quote.
-\newcommand{\quoteit}[1]{%
-   \begin{quotenv}%
-   #1%
-   \end{quotenv}\par%
-   \vspace{10pt}\par%
-}
-
-% This environment prints a "packed list of items".
-\newenvironment{packed_enum}{
-   \begin{itemize}[topsep=0pt, itemsep=1pt, parsep=0pt, partopsep=0pt]%
-}{\end{itemize}}
-
-% This command prints "packed tables".
-\newenvironment{packed_tabular}{
-   \setlength{\tabcolsep}{0pt}
-}{}
-
-% Make sure that the content inserted within this environment is printed on one page.
-% https://stackoverflow.com/questions/4003473/make-an-unbreakable-block-in-tex
-\newenvironment{absolutelynopagebreak}{
-   \par\nobreak\vfil\penalty0\vfilneg
-   \vtop\bgroup
-}{%
-   \par\xdef\tpd{\the\prevdepth}\egroup\prevdepth=\tpd%
-}
-
-% Format the name of a company.
-\newcommand{\cpname}[1]{%
-  \textbf{#1}%
-}
-
-% Format the name of a degree.
-\newcommand{\school}[1]{%
-  \textbf{#1}%
-}
-
-% ---------------------------------------------------------------------------------
-% Define formats for texts that appear in the header.
-% ---------------------------------------------------------------------------------
-
-\DeclareTextFontCommand{\fontIdentity}{\fontIdentityDef}
-\newcommand{\identity}[2]{\fontIdentity{#1 #2}}
-\newcommand{\addressFirst}[1]{#1}
-\newcommand{\addressSecond}[1]{#1}
-\newcommand{\tel}[1]{#1}
-\newcommand{\email}[2]{#1@#2}
-\newcommand{\website}[1]{#1}
-\newcommand{\drivingLicense}[1]{#1}
-
-\newenvironment{headerEnv}{%
-   \fontPrivateDef%
-}{}
-
-% ---------------------------------------------------------------------------------
-% Define formats for texts that appear in tables.
-% ---------------------------------------------------------------------------------
-
-% This command defines the background color of the first line of the table (that is, the header).
-\definecolor{colorHeader}{rgb}{0.77, 0.77, 0.56}
-
-% This command applies the required style to the text that appears in the table header.
-\newcommand{\tableHd}[1]{%
-   \textbf{#1}
-}%
-
-% We define a column type for tabularx.
-% This type centers the content of a cell.
-% See https://tex.stackexchange.com/questions/89166/centering-in-tabularx-and-x-columns
-\newcolumntype{C}{>{\centering\arraybackslash}X}
-
+% Print the header that marks a eealisation.
+% The first parameter represents the duration of the realisation.
+% The second parameter represents the list of tools used.
 \newcommand{\realisationHeader}[2]{
    \vspace{10pt}\par%
    \begin{tcolorbox}[notitle,
@@ -203,8 +112,8 @@
                      valign=center,
                      width=\textwidth,
                      colback=white]%
-      \begin{packed_tabular}
-         \begin{tabular}{lll}
+      \begin{packed_tabular}%
+         \begin{tabular}{lll}%
             \textbf{Durée}        & ~ & #1 \\
             \textbf{Technologies} & ~ & #2 \\
          \end{tabular}%
@@ -213,6 +122,137 @@
    \par%
 }%
 
+% Define the element that represents the start of a sub-section that presents the realisation for a company.
+\newcommand{\sectionCompany}[1]{ 
+   \vspace{\interSectionTitleContentLength}\par%
+   \hspace{\companySectionIndentLength}\begin{tcolorbox}[notitle,
+                      nobeforeafter, % See https://mirror.hmc.edu/ctan/macros/latex/contrib/tcolorbox/tcolorbox.pdf
+                      bottomrule=2pt,
+                      toprule=0pt,
+                      leftrule=0pt,
+                      rightrule=0pt,
+                      top=0pt,
+                      bottom=0pt,
+                      halign=left,
+                      left=0pt,
+                      valign=center,
+                      colback={colorCompanySection},
+                      width=\textwidth-\companySectionIndentLength]%
+       #1%
+   \end{tcolorbox}%
+   \par%
+}%
+
+% ---------------------------------------------------------------------------------
+% Define commands for general text formatting.
+% ---------------------------------------------------------------------------------
+
+% This environment sets the required configuration for a synthesis.
+% Please note that this environment is used exclusively within the command \synthesis.
+\newenvironment{synthesisEnv}{%
+   \fontQuoteDef
+}{}
+
+% This command creates a synthesis.
+\newcommand{\synthesis}[1]{%
+   \begin{synthesisEnv}%
+   #1%
+   \end{synthesisEnv}\par%
+}
+
+% This environment sets the required configuration for the rendering of a technical term.
+% Please note that this environment is used exclusively within the command \techno.
+\newenvironment{technoEnv}{%
+   \fontTechnoDef
+}{}
+
+% This command prints a technical term.
+% Ex: \techno{PHP}
+\newcommand{\techno}[1]{%
+   \begin{technoEnv}%
+   #1% 
+   \end{technoEnv}\par%
+}
+
+% This environment prints a "packed list of items".
+\newenvironment{packed_enum}{
+   \begin{itemize}[topsep=0pt, itemsep=1pt, parsep=0pt, partopsep=0pt]%
+}{\end{itemize}}
+
+% This command prints a "packed table".
+\newenvironment{packed_tabular}{
+   \setlength{\tabcolsep}{0pt}
+}{}
+
+% Make sure that the content inserted within this environment is printed on one page.
+% https://stackoverflow.com/questions/4003473/make-an-unbreakable-block-in-tex
+\newenvironment{absolutelynopagebreak}{
+   \par\nobreak\vfil\penalty0\vfilneg
+   \vtop\bgroup
+}{%
+   \par\xdef\tpd{\the\prevdepth}\egroup\prevdepth=\tpd%
+}
+
+% Format the name of a company.
+% Ex: \cpname{Google}
+\newcommand{\cpname}[1]{%
+  \textbf{#1}%
+}
+
+% Format the name of a degree.
+% Ex: \diploma[thesis}
+\newcommand{\diploma}[1]{%
+  \textbf{#1}%
+}
+
+% ---------------------------------------------------------------------------------
+% Define formats for texts that appear in the header.
+% ---------------------------------------------------------------------------------
+
+% This command prints a given text using the font that should be used for the first name and the last name.
+\DeclareTextFontCommand{\fontIdentity}{\fontIdentityDef}
+
+% Print the first name and the last name.
+\newcommand{\identity}[2]{\fontIdentity{#1 #2}}
+
+% Print the first line of the address.
+\newcommand{\addressFirst}[1]{#1}
+
+% Print the second line of the address.
+\newcommand{\addressSecond}[1]{#1}
+
+% Print the telephone number.
+\newcommand{\tel}[1]{#1}
+
+% Print the email address.
+\newcommand{\email}[2]{#1@#2}
+
+% Print the URL to the website.
+\newcommand{\website}[1]{#1}
+
+% Print the type of the driving licence.
+\newcommand{\drivingLicense}[1]{#1}
+
+% Define the environment used to render the resume header.
+\newenvironment{headerEnv}{%
+   \fontPrivateDef%
+}{}
+
+% ---------------------------------------------------------------------------------
+% Define formats for texts that appear in tables.
+% ---------------------------------------------------------------------------------
+
+% This command applies the required style to the text that appears in the table header.
+\newcommand{\tableHd}[1]{%
+   \textbf{#1}
+}%
+
+% We define a column type for tabularx.
+% This type centers the content of a cell.
+% See https://tex.stackexchange.com/questions/89166/centering-in-tabularx-and-x-columns
+\newcolumntype{C}{>{\centering\arraybackslash}X}
+
+% This environment applies to the description of a realisation.
 \newenvironment{realisationEnv}{
    \setlength{\parskip}{1em}
 }{%
@@ -239,28 +279,29 @@
           \faCar       & ~ & Permis B                            & \\
       \end{tabularx}%
    \end{headerEnv}%
-   
 
    % ------------------------------------------------------------------------
    % LANGAGES
    % ------------------------------------------------------------------------
-   
+
    \mainSectionSeparator{Langages}
 
-   \begin{sectionContent}
-      \quoteit{La pratique d'un grand nombre de langages de programmation reflète mon expérience sur des problématiques et des
+   \begin{sectionComponent}
+      \synthesis{La pratique d'un grand nombre de langages de programmation reflète mon expérience sur des problématiques et des
           environnements variés, caractérisés par des contraintes et des paradigmes également variés. Le choix du langage
           adapté est une des clés du succès.}
+   \end{sectionComponent}
    
+   \begin{sectionComponent}
       \begin{tabularx}{\textwidth}{|X|X|X|C|}
    
-          \arrayrulecolor{colorHeader}    
+          \arrayrulecolor{colorTableHeader}    
    
           \hline 
-          \rowcolor{colorHeader}
+          \rowcolor{colorTableHeader}
           \tableHd{Langage} & \tableHd{Niveau} & \tableHd{Expérience} & \tableHd{Opérationnel} \\
    
-          \arrayrulecolor{colorVerticalTableLines}    
+          \arrayrulecolor{colorHorizontalTableLines}    
    
           \hline
           PHP5/7        & Expert             & 20 ans & \faBatteryFull \\
@@ -283,9 +324,8 @@
           \hline
           ActionScript  & Ancien expert      & 1 an   & \faBatteryEmpty \\
           \hline
-      \end{tabularx}%
-
-   \end{sectionContent}
+      \end{tabularx}
+   \end{sectionComponent}
 
    % ------------------------------------------------------------------------
    % FRAMEWORKS
@@ -293,21 +333,23 @@
 
    \mainSectionSeparator{Frameworks}
 
-   \begin{sectionContent}
-      \quoteit{Il y a plusieurs types de frameworks qui implémentent des "philosophies", et des "approches", diverses,
+   \begin{sectionComponent}
+      \synthesis{Il y a plusieurs types de frameworks qui implémentent des "philosophies", et des "approches", diverses,
           à des niveaux différents. Il n'existe pas de frameworks "adaptés à tous les projets". Ils n'existent que des
-          frameworks plus ou moins adaptés à des contextes d'utilisation. Le choix d'un framework adapté est une des clés
-          de la réussite.}
+          frameworks plus ou moins adaptés à des contextes d'utilisation. Le choix d'un framework adapté est une des
+          clés de la réussite.}
+   \end{sectionComponent}
    
+   \begin{sectionComponent}
       \begin{tabularx}{\textwidth}{|X|X|X|C|}
    
-          \arrayrulecolor{colorHeader}    
+          \arrayrulecolor{colorTableHeader}    
    
           \hline 
-          \rowcolor{colorHeader}
+          \rowcolor{colorTableHeader}
           \tableHd{Framework} & \tableHd{Type} & \tableHd{Langage} & \tableHd{Niveau actuel} \\
    
-          \arrayrulecolor{colorVerticalTableLines}    
+          \arrayrulecolor{colorHorizontalTableLines}    
    
           \hline 
           Zend V1             & MVC            & PHP               & \faThumbsOUp \\
@@ -320,23 +362,19 @@
           \hline 
           ELGG                & MVC+Social     & PHP               & \faThumbsODown \\
           \hline 
-          Adobe Flex 3        & FEWA*          & ActionScript      & \faThumbsODown \\
+          Adobe Flex 3        & MVC            & ActionScript      & \faThumbsODown \\
           \hline
-          AngularJS V1.5      & FEWA*          & JavaScript        & \faThumbsODown \\
+          AngularJS V1.5      & MVC            & JavaScript        & \faThumbsODown \\
           \hline 
       \end{tabularx}
-      \vspace{10pt}
-   
-      FEWA = Front-End Web Application
-   \end{sectionContent}
+   \end{sectionComponent}
 
    % ------------------------------------------------------------------------
    % FUNCTIONAL
    % ------------------------------------------------------------------------
 
    \mainSectionSeparator{Compétences métier}
-
-   \begin{sectionContent}
+   \begin{sectionComponent}
       % http://borntocode.fr/latex-customisation-de-listes-a-puces/
       \begin{packed_enum}
          \item Choix technologiques.
@@ -347,7 +385,7 @@
          \item Conception de systèmes « transparents » (conçus, dès le départ, pour être supervisés).
          \item WEB
       \end{packed_enum}
-   \end{sectionContent}
+   \end{sectionComponent}
 
    % ------------------------------------------------------------------------
    % PROFESSIONAL EXPERIENCE
@@ -356,7 +394,7 @@
    \newpage
    \mainSectionSeparator{Expérience professionnelle}
 
-   \begin{sectionContent}
+   \begin{sectionComponent}
       \begin{packed_tabular}
          \begin{tabular}{lclclclll}
             09/ & 2016 & ~ & \multicolumn{2}{l}{à ce jour} & ~ & \cpname{Kertios}     & ~ &%
@@ -373,17 +411,16 @@
                 Architecte + Ingénieur d'étude et développement \\
             09/ & 2001 & ~ & 06/ & 2005                    & ~ & \cpname{LibertySurf} & ~ &%
                 Architecte + Ingénieur d'étude et développement \\
-            03/ & 1999 & ~ & 09/ & 2000                    & ~ & \cpname{Cetia Inc}*  & ~ &%
+            03/ & 1999 & ~ & 09/ & 2000                    & ~ & \cpname{Cetia Inc}   & ~ &%
                 Architecte + Ingénieur d'étude et développement \\
             06/ & 1998 & ~ & 01/ & 1999                    & ~ & \cpname{STERIA}      & ~ &%
                 Architecte + Ingénieur d'étude et développement \\
          \end{tabular}%
       \end{packed_tabular}%
-   
-      \vspace{10pt}
+      \par\vspace{10pt}\par
    
       \cpname{Cetia Inc} CETIA était le revendeur exclusif des produits Thales aux USA (Massachusetts). En 2000, Cetia a été englobé par Thales.
-   \end{sectionContent}
+   \end{sectionComponent}
 
    % ------------------------------------------------------------------------
    % FORMATION
@@ -391,16 +428,16 @@
 
    \mainSectionSeparator{Formation}
 
-   \begin{sectionContent}
+   \begin{sectionComponent}
       \begin{packed_tabular}
          \begin{tabular}{lclclcl}
-            \school{DESS "Ingénierie des Systèmes Informatiques"} & ~ & BAC+5 & ~ & 1998 & ~ &%
+            \diploma{DESS "Ingénierie des Systèmes Informatiques"} & ~ & BAC+5 & ~ & 1998 & ~ &%
                  Université Pierre-et-Marie-Curie \\
-            \school{Maîtrise de physique et applications}         & ~ & BAC+4 & ~ & 1997 & ~ &%
+            \diploma{Maîtrise de physique et applications}         & ~ & BAC+4 & ~ & 1997 & ~ &%
                  Université Pierre-et-Marie-Curie \\
          \end{tabular}%
       \end{packed_tabular}%
-   \end{sectionContent}
+   \end{sectionComponent}
 
    % ------------------------------------------------------------------------
    % PROJECTS
@@ -408,7 +445,7 @@
 
    \mainSectionSeparator{Projets}
 
-   \begin{sectionContent}
+   \begin{sectionComponent}
       \sectionCompany{Kertios}
    
       \realisationHeader{6 mois}{\techno{Linux}, \techno{PHP7}, \techno{RabbitMQ}}
@@ -455,6 +492,12 @@
          Perl5, JavaScript, JQuery, Chart.js.
    
        \end{realisationEnv}
-   \end{sectionContent}
+   \end{sectionComponent}
+
+   \begin{sectionComponent}
+      \sectionCompany{Ijenko}
+
+
+   \end{sectionComponent}
 
 \end{document}
