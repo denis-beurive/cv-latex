@@ -12,6 +12,11 @@
 % - vlengthSectionTitleContent: the distance that separates the bottom of the
 %   element that marks the start of a section and the (first) element that forms
 %   the content of the section.
+%
+% Note:
+%
+% - hlength: horizontal distance.
+% - vlength: vertical distance.
 % ---------------------------------------------------------------------------------
 
 \newlength{\hlengthCompanySection}
@@ -38,6 +43,7 @@
 \definecolor{colorHorizontalTableLines}{rgb}{0.639, 0.639, 0.639}
 \definecolor{colorMainSection}{rgb}{0.97, 0.77, 0.56}
 \definecolor{colorCompanySection}{rgb}{0.525, 0.917, 0.603}
+\definecolor{colorBackTechnoName}{rgb}{1, 1, 0.102}
 
 % ---------------------------------------------------------------------------------
 % Set fonts.
@@ -54,6 +60,72 @@
 \newcommand{\fontPrivateDef}{\setmainfont[Ligatures=TeX]{LMRoman6-Regular}}
 \newcommand{\fontCitationDef}{\setmainfont[Ligatures=TeX]{Accanthis ADF Std Italic}\small}
 \newcommand{\fontTechnoDef}{\setmainfont[Ligatures=TeX]{Ubuntu Mono}}
+
+\DeclareTextFontCommand{\fontIdentity}{\fontIdentityDef}
+\DeclareTextFontCommand{\fontPrivate}{\fontPrivateDef}
+\DeclareTextFontCommand{\fontCitation}{\fontCitationDef}
+\DeclareTextFontCommand{\fontTechno}{\fontTechnoDef}
+
+% ---------------------------------------------------------------------------------
+% Technical terms.
+% ---------------------------------------------------------------------------------
+
+\newtcbox{\xtechnoBox}{on line,
+                       boxsep=0pt,
+                       boxrule=1pt,
+                       colback={colorBackTechnoName},
+                       colframe=white,
+                       left=1pt,
+                       right=1pt,
+                       top=1pt,
+                       bottom=1pt}
+
+\newcommand{\technoBox}[1]{\xtechnoBox{\fontTechno{#1}}}
+
+%%% Languages
+
+\newcommand{\xvPerl}[1]{\technoBox{Perl#1}}
+\newcommand{\xvPHP}[1]{\fontTechno{PHP#1}}
+\newcommand{\xvPython}[1]{\fontTechno{Python#1}}
+
+\newcommand{\xGo}{\fontTechno{Go}}
+\newcommand{\xSQL}{\fontTechno{SQL}}
+\newcommand{\xJava}{\fontTechno{Java}}
+\newcommand{\xJavaScript}{\fontTechno{JavaScript}}
+\newcommand{\xC}{\fontTechno{C}}
+\newcommand{\xCpp}{\fontTechno{C++}}
+\newcommand{\xTCL}{\fontTechno{TCL}}
+\newcommand{\xTCLTK}{\fontTechno{Tcl/Tk}}
+\newcommand{\xLaTeX}{\fontTechno{LaTeX}}
+
+%%% Web
+
+\newcommand{\xHTML}{\fontTechno{HTML}}
+\newcommand{\xCSS}{\fontTechno{CSS}}
+\newcommand{\xAjax}{\fontTechno{Ajax}}
+
+%%% Sofwares
+
+\newcommand{\xGit}{\fontTechno{Git}}
+\newcommand{\xSVN}{\fontTechno{SVN}}
+\newcommand{\xCVS}{\fontTechno{CVS}}
+\newcommand{\xMySql}{\fontTechno{MySql}}
+\newcommand{\xSQLite}{\fontTechno{SQLite}}
+\newcommand{\xRabbitMQ}{\fontTechno{RabbitMQ}}
+\newcommand{\xControlM}{\fontTechno{BMC Control-M}}
+\newcommand{\xCFT}{\fontTechno{Axway CFT}}
+\newcommand{\xPELICAN}{\fontTechno{Inter.Pel(Pelican)}}
+
+%%% Framworks
+
+\newcommand{\xvAngularJS}[1]{\fontTechno{AngularJS V#1}}
+\newcommand{\xvZF}[1]{\fontTechno{Zend Framzwork V#1}}
+\newcommand{\xvSlim}[1]{\fontTechno{Slim V#1}}
+
+\newcommand{\xJQuery}{\fontTechno{jQuery}}
+\newcommand{\xDancer}{\fontTechno{Dancer}}
+\newcommand{\xFlex}{\fontTechno{Flex 3}}
+\newcommand{\xELGG}{\fontTechno{ELGG}}
 
 % ---------------------------------------------------------------------------------
 % Define the elements that compose a section.
@@ -220,9 +292,6 @@
 % ---------------------------------------------------------------------------------
 % Define formats for texts that appear in the header.
 % ---------------------------------------------------------------------------------
-
-% This command prints a given text using the font that should be used for the first name and the last name.
-\DeclareTextFontCommand{\fontIdentity}{\fontIdentityDef}
 
 % Print the first name and the last name.
 \newcommand{\identity}[2]{\fontIdentity{#1 #2}}
@@ -497,7 +566,7 @@
    
          Développement d'un analyseur de LOG PELICAN destiné à produire une cartographie des flux sur la plateforme du client. Cet outil peut être
          couplé au convertisseur de configuration PELICAN en configuration CFT afin de détecter des configurations non utilisées. Technologies
-         utilisées : Perl et SQLite.
+         utilisées : Perl5 et SQLite.
    
          Développement d'un outil de supervision pour IBM Tivoli Storage Manager (TSM). Cet outil injecte les données extraites des LOG TSM dans une
          base de données SQLite et génère des rapports journaliers au format HTML (qui peuvent être consultés via HTTP). Technologies utilisées :
@@ -509,6 +578,11 @@
    \begin{sectionComponent}
       \sectionCompany{Ijenko}
 
+      \realisationHeader{18 mois}{\techno{Linux}, \techno{PHP7}, \techno{RabbitMQ}}
+
+      \begin{realisationEnv}
+         \xvPerl{5} azerty
+      \end{realisationEnv}
 
    \end{sectionComponent}
 
