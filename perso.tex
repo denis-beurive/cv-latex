@@ -1,27 +1,24 @@
 
-
 \documentclass{cv}
 
 \setlength{\parskip}{0pt}
 
 % ---------------------------------------------------------------------------------
 % Set lengths.
+%
+% - hlengthCompanySection: this length is used within the section that
+%   presents the realisations per company. It is the distance between the left
+%   margin and the start of the area that prints the name of the company.
+% - vlengthSectionTitleContent: the distance that separates the bottom of the
+%   element that marks the start of a section and the (first) element that forms
+%   the content of the section.
 % ---------------------------------------------------------------------------------
 
-% The horizontal distance between the left margin and the start of the area that prints the 
-% name of the company.
-% |<left margin>|<---->|<company>
-\newlength{\companySectionIndentLength}
-\setlength{\companySectionIndentLength}{10pt}%
+\newlength{\hlengthCompanySection}
+\setlength{\hlengthCompanySection}{10pt}%
 
-% The vertical distance between the title of the section and the content of the section.
-%  <title>
-% ---------
-%           <- vertical distance  
-% ---------
-% <content>   
-\newlength{\interSectionTitleContentLength}
-\setlength{\interSectionTitleContentLength}{8pt}%
+\newlength{\vlengthSectionTitleContent}
+\setlength{\vlengthSectionTitleContent}{8pt}%
 
 % ---------------------------------------------------------------------------------
 % Set colors.
@@ -31,12 +28,12 @@
 % - colorMainSection: the background color of the box that materialises the start
 %   of a main section.
 % - colorCompanySection: the background color of the box that materialises the
-%   start of the section that presents the realisations for a
-%   given company.
-% ---------------------------------------------------------------------------------
-
+%   start of the section that presents the realisations for a given company.
+%
 % See https://www.sharelatex.com/learn/Using_colours_in_LaTeX
 % See https://en.wikipedia.org/wiki/List_of_colors:_A%E2%80%93F
+% ---------------------------------------------------------------------------------
+
 \definecolor{colorTableHeader}{rgb}{0.77, 0.77, 0.56}
 \definecolor{colorHorizontalTableLines}{rgb}{0.639, 0.639, 0.639}
 \definecolor{colorMainSection}{rgb}{0.97, 0.77, 0.56}
@@ -44,11 +41,18 @@
 
 % ---------------------------------------------------------------------------------
 % Set fonts.
+%
+% - fontIdentityDef: the font that is used to render the identity (the first name
+%   and the last name).
+% - fontPrivateDef: the font that is used to render personal informationi (phone,
+%   address...).
+% - fontCitationDef: the font used to render citations.
+% - fontTechnoDef: the font used to render the name of a technological tool.
 % ---------------------------------------------------------------------------------
 
 \newcommand{\fontIdentityDef}{\setmainfont[Ligatures=TeX]{LMRoman6-Regular}}
 \newcommand{\fontPrivateDef}{\setmainfont[Ligatures=TeX]{LMRoman6-Regular}}
-\newcommand{\fontQuoteDef}{\setmainfont[Ligatures=TeX]{Accanthis ADF Std Italic}\small}
+\newcommand{\fontCitationDef}{\setmainfont[Ligatures=TeX]{Accanthis ADF Std Italic}\small}
 \newcommand{\fontTechnoDef}{\setmainfont[Ligatures=TeX]{Ubuntu Mono}}
 
 % ---------------------------------------------------------------------------------
@@ -64,13 +68,14 @@
 % Notes:
 %
 % - each element is responsible for applying the required vertical space that
-%   separates it from the elements the precedes it.
+%   separates it from the element that precedes it.
 % - Each element is responsible for breaking the horizontal (or "paragraphe") mode
 %   at its bottom.
 % ---------------------------------------------------------------------------------
 
 % Define the zone that prints the title of the section.
-\newcommand{\mainSectionSeparator}[1]{
+\newcommand{\mainSectionSeparator}[1]{%
+   % Apply the required vertical space that separates it from the element that precedes it.
    \vspace{10pt}\par%
    \begin{tcolorbox}[notitle,
                      nobeforeafter, % See https://mirror.hmc.edu/ctan/macros/latex/contrib/tcolorbox/tcolorbox.pdf
@@ -83,21 +88,25 @@
                      colback={colorMainSection}]%
       #1%
    \end{tcolorbox}%
-   \par%
+   % Break the horizontal mode
+   \par% 
 }%
 
 % Define the environment that applies to a section component.
 % Please note that a section may be made of several components.
-\newenvironment{sectionComponent}{
-   \vspace{\interSectionTitleContentLength}\par%
+\newenvironment{sectionComponent}{%
+   % Apply the required vertical space that separates it from the element that precedes it.
+   \vspace{\vlengthSectionTitleContent}\par%
 }{%
+   % Break the horizontal mode
    \par%
 }%
 
 % Print the header that marks a eealisation.
 % The first parameter represents the duration of the realisation.
 % The second parameter represents the list of tools used.
-\newcommand{\realisationHeader}[2]{
+\newcommand{\realisationHeader}[2]{%
+   % Apply the required vertical space that separates it from the element that precedes it.
    \vspace{10pt}\par%
    \begin{tcolorbox}[notitle,
                      nobeforeafter, % See https://mirror.hmc.edu/ctan/macros/latex/contrib/tcolorbox/tcolorbox.pdf
@@ -119,13 +128,15 @@
          \end{tabular}%
       \end{packed_tabular}%
    \end{tcolorbox}%
+   % Break the horizontal mode
    \par%
 }%
 
 % Define the element that represents the start of a sub-section that presents the realisation for a company.
-\newcommand{\sectionCompany}[1]{ 
-   \vspace{\interSectionTitleContentLength}\par%
-   \hspace{\companySectionIndentLength}\begin{tcolorbox}[notitle,
+\newcommand{\sectionCompany}[1]{% 
+   % Apply the required vertical space that separates it from the element that precedes it.
+   \vspace{\vlengthSectionTitleContent}\par%
+   \hspace{\hlengthCompanySection}\begin{tcolorbox}[notitle,
                       nobeforeafter, % See https://mirror.hmc.edu/ctan/macros/latex/contrib/tcolorbox/tcolorbox.pdf
                       bottomrule=2pt,
                       toprule=0pt,
@@ -137,9 +148,10 @@
                       left=0pt,
                       valign=center,
                       colback={colorCompanySection},
-                      width=\textwidth-\companySectionIndentLength]%
+                      width=\textwidth-\hlengthCompanySection]%
        #1%
    \end{tcolorbox}%
+   % Break the horizontal mode
    \par%
 }%
 
@@ -150,7 +162,7 @@
 % This environment sets the required configuration for a synthesis.
 % Please note that this environment is used exclusively within the command \synthesis.
 \newenvironment{synthesisEnv}{%
-   \fontQuoteDef
+   \fontCitationDef
 }{}
 
 % This command creates a synthesis.
