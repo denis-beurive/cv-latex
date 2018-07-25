@@ -60,6 +60,7 @@
 % - fontSynthesisDef: the font used to render citations.
 % - fontTechnoDef: the font used to render the name of a technological tool.
 % - fontRemarkDef: the font used to render a remark.
+% - fontRealisationDef: the font used to render the descriptions of realisations.
 %
 % Notes:
 % 
@@ -83,6 +84,9 @@
 \newcommand{\fontSynthesisDef}{\setmainfont[Ligatures=TeX]{Accanthis ADF Std Italic}\small}
 \newcommand{\fontTechnoDef}{\setmainfont[Ligatures=TeX]{Ubuntu Mono}}
 \newcommand{\fontRemarkDef}{\setmainfont[Ligatures=TeX]{Latin Modern Roman}\small}
+\newcommand{\fontRealisationDef}{\setmainfont[Ligatures=TeX]{Latin Modern Roman}
+   \fontsize{9pt}{11pt}\selectfont
+}
 
 \DeclareTextFontCommand{\fontIdentity}{\fontIdentityDef}
 \DeclareTextFontCommand{\fontPrivate}{\fontPrivateDef}
@@ -91,6 +95,7 @@
 \DeclareTextFontCommand{\fontSynthesis}{\fontSynthesisDef}
 \DeclareTextFontCommand{\fontTechno}{\fontTechnoDef}
 \DeclareTextFontCommand{\fontRemark}{\fontRemarkDef}
+\DeclareTextFontCommand{\fontRealisation}{\fontRealisationDef}
 
 % ---------------------------------------------------------------------------------
 % Symbols used to represent skill levels.
@@ -343,6 +348,7 @@
 
 % This environment applies to the description of a realisation.
 \newenvironment{realisationEnv}{
+   \fontRealisationDef
    \setlength{\parskip}{1em}
 }{%
    \par%
@@ -542,7 +548,6 @@
       \sectionCompany{Kertios}
    
       \realisationHeader{6 mois}{\techno{Linux}, \techno{PHP7}, \techno{RabbitMQ}}
-   
       \begin{realisationEnv}
          Développement d'un outil qui permet de construire un graphe de dépendances à partir d'une liste de formules mathématiques qui dépendent les
          unes des autres.
@@ -554,7 +559,6 @@
       \end{realisationEnv}
    
       \realisationHeader{18 mois}{\techno{AIX}, \techno{Linux}, \techno{PHP7}, \techno{Perl5}, \techno{JavaScript}, \techno{SQLite}, \techno{TCL-TK}, \techno{KSH}, \techno{BASH}, \techno{jQuery}, \techno{Chart.js}}
-   
       \begin{realisationEnv}
          Assurer les migrations d'\technoBox{UNICENTER} (Computer Associates) vers \technoBox{Control-M} (BMC Software) et de \technoBox{PELICAN} (Axway) vers \technoBox{CFT} (Axway). OS : \technoBox{AIX 7.2}
          et \technoBox{linux}.
@@ -590,11 +594,70 @@
    \begin{sectionComponent}
       \sectionCompany{Ijenko}
 
-      \realisationHeader{18 mois}{\techno{Linux}, \techno{PHP7}, \techno{RabbitMQ}}
-
+      \realisationHeader{2 ans}{\techno{Linux}, \techno{PHP5}, \techno{Perl5}, \techno{Zend V1}, \techno{MySql}, \techno{JavaScript}, \techno{jQuery}, \techno{BootStrap} }
       \begin{realisationEnv}
+         Ijenko développait un système d'information destiné au contrôle à distance d'objets connectés
+         (thermostats, interrupteurs...). Le système d'information dialoguait avec des « box » installées chez
+         les clients. Mon travail a consisté à reprendre le système d'information pour le faire évoluer.
+      \end{realisationEnv}
+   \end{sectionComponent}
+
+   \begin{sectionComponent}
+      \sectionCompany{Halys}
+
+      \realisationHeader{6 mois}{\techno{Linux}, \techno{PHP5}, \techno{Perl5}, \techno{C}, \techno{Zend V1}, \techno{MySql}, \techno{JavaScript}, \techno{jQuery}, \techno{BootStrap} }
+      \begin{realisationEnv}
+         Halys est un opérateur Télécom qui développe des logiciels utilisés dans le secteur de la téléphonie mobile.
+         Mon travail consistait à développer un logiciel permettant à des opérateurs Télécoms d'automatiser certains
+         tests (tests IREG).
+      \end{realisationEnv}
+   \end{sectionComponent}
+
+   \begin{sectionComponent}
+      \sectionCompany{Paritel}
+
+      \realisationHeader{8 mois}{\techno{Linux}, \techno{PHP5}, \techno{Perl5}, \techno{MySql}}
+      \begin{realisationEnv}
+         Analyse, conception et réalisation d'un entrepôt de données destiné au stockage de CDRs (Call Detail Record).
       \end{realisationEnv}
 
+      \realisationHeader{6 mois}{\techno{Linux}, \techno{PHP5}, \techno{Perl5}, \techno{MySql}}
+      \begin{realisationEnv}
+         Analyse, conception et réalisation d'un système de supervision des équipements réseaux, et des services. 
+      \end{realisationEnv}
+
+      \realisationHeader{3 mois}{\techno{Linux}, \techno{PHP5}, \techno{Perl5}, \techno{MySql}, \techno{Asterisk}}
+      \begin{realisationEnv}
+         Analyse, conception et réalisation d'un système d'envoi et de réception de fax qui s'intègre à l'infrastructure de Paritel. 
+      \end{realisationEnv}
+
+      \realisationHeader{5 ans}{\techno{Linux}, \techno{PHP5}, \techno{Perl5}, \techno{MySql}, \techno{JavaScript}, \techno{jQuery}}
+      \begin{realisationEnv}
+         Analyse, conception et réalisation d'une interface d'interrogation des différents services de l'opérateur Paritel Télécom. 
+      \end{realisationEnv}
    \end{sectionComponent}
+
+
+   \begin{sectionComponent}
+      \sectionCompany{Alice ADSL}
+
+      \realisationHeader{4 mois}{\techno{Linux}, \techno{PHP5}, \techno{Perl5}, \techno{MySql}, \techno{GraphViz}}
+      \begin{realisationEnv}
+         Analyse, conception et réalisation d'un moteur de workflow destiné au déploiement du réseau en fibre optique, compatible ADSL2+. 
+      \end{realisationEnv}
+
+      \realisationHeader{4 mois}{\techno{Linux}, \techno{PHP5}, \techno{Perl5}, \techno{MySql}}
+      \begin{realisationEnv}
+         Analyse, conception et réalisation du système d'information pour la gestion des modems Alice ADSL (supervision, configurations et mise à jour). 
+      \end{realisationEnv}
+
+      \realisationHeader{5 mois}{\techno{Linux}, \techno{PHP5}, \techno{Perl5}, \techno{MySql}}
+      \begin{realisationEnv}
+         Refonte du système d'information pour la gestion des configurations réseaux (Radius, DHCP...) des clients Alice ADSL.
+      \end{realisationEnv}
+   \end{sectionComponent}
+
+
+
 
 \end{document}
