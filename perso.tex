@@ -34,6 +34,7 @@
 %   of a main section.
 % - colorCompanySection: the background color of the box that materialises the
 %   start of the section that presents the realisations for a given company.
+% - colorBackRemark: the background color of the box that materialises a note.
 %
 % See https://www.sharelatex.com/learn/Using_colours_in_LaTeX
 % See https://en.wikipedia.org/wiki/List_of_colors:_A%E2%80%93F
@@ -44,6 +45,7 @@
 \definecolor{colorMainSection}{rgb}{0.97, 0.77, 0.56}
 \definecolor{colorCompanySection}{rgb}{0.525, 0.917, 0.603}
 \definecolor{colorBackTechnoName}{rgb}{0.992, 1, 0.811}
+\definecolor{colorBackRemark}{rgb}{0.95, 0.95, 0.95}
 
 % ---------------------------------------------------------------------------------
 % Set fonts.
@@ -53,8 +55,11 @@
 % - fontPrivateDef: the font that is used to render personal informationi (phone,
 %   address...).
 % - fontSectionTitleDef: the font that is used to render the title of a section.
+% - fontCompanyTitleDef: the font that is used to render the name of a company
+%   that appears as a title.
 % - fontSynthesisDef: the font used to render citations.
 % - fontTechnoDef: the font used to render the name of a technological tool.
+% - fontRemarkDef: the font used to render a remark.
 %
 % Notes:
 % 
@@ -73,14 +78,32 @@
    \fontsize{10pt}{12pt}\selectfont}
 \newcommand{\fontSectionTitleDef}{\setmainfont[Ligatures=TeX]{Accanthis ADF Std Bold}
    \fontsize{10pt}{12pt}\selectfont}
+\newcommand{\fontCompanyTitleDef}{\setmainfont[Ligatures=TeX]{Accanthis ADF Std Bold}
+   \fontsize{10pt}{12pt}\selectfont}
 \newcommand{\fontSynthesisDef}{\setmainfont[Ligatures=TeX]{Accanthis ADF Std Italic}\small}
 \newcommand{\fontTechnoDef}{\setmainfont[Ligatures=TeX]{Ubuntu Mono}}
+\newcommand{\fontRemarkDef}{\setmainfont[Ligatures=TeX]{Latin Modern Roman}\small}
 
 \DeclareTextFontCommand{\fontIdentity}{\fontIdentityDef}
 \DeclareTextFontCommand{\fontPrivate}{\fontPrivateDef}
 \DeclareTextFontCommand{\fontSectionTitle}{\fontSectionTitleDef}
+\DeclareTextFontCommand{\fontCompanyTitle}{\fontCompanyTitleDef}
 \DeclareTextFontCommand{\fontSynthesis}{\fontSynthesisDef}
 \DeclareTextFontCommand{\fontTechno}{\fontTechnoDef}
+\DeclareTextFontCommand{\fontRemark}{\fontRemarkDef}
+
+% ---------------------------------------------------------------------------------
+% Symbols used to represent skill levels.
+% ---------------------------------------------------------------------------------
+
+\newcommand{\skillFull}{\raisebox{-1pt}{\faBatteryFull}}
+\newcommand{\skillThreeQuarters}{\raisebox{-1pt}{\faBatteryThreeQuarters}}
+\newcommand{\skillHalf}{\raisebox{-1pt}{\faBatteryHalf}}
+\newcommand{\skillQuarter}{\raisebox{-1pt}{\faBatteryQuarter}}
+\newcommand{\skillEmpty}{\raisebox{-1pt}{\faBatteryEmpty}}
+
+\newcommand{\skillThumbsOUp}{\raisebox{-1pt}{\faThumbsOUp}}
+\newcommand{\skillThumbsODown}{\raisebox{-1pt}{\faThumbsODown}}
 
 % ---------------------------------------------------------------------------------
 % Technical terms.
@@ -195,7 +218,7 @@
                       valign=center,
                       colback={colorCompanySection},
                       width=\textwidth-\hlengthCompanySection]%
-       #1%
+       \fontCompanyTitle{#1}%
    \end{tcolorbox}%
    % Break the horizontal mode
    \par%
@@ -244,13 +267,34 @@
 % Format the name of a company.
 % Ex: \cpname{Google}
 \newcommand{\cpname}[1]{%
-  \textbf{#1}%
+   \textbf{#1}%
 }
 
 % Format the name of a degree.
 % Ex: \diploma[thesis}
 \newcommand{\diploma}[1]{%
-  \textbf{#1}%
+   \textbf{#1}%
+}
+
+% Create a remark.
+% The parameter represents the text of the remark.
+\newcommand{\remark}[1]{
+   \begin{tcolorbox}[notitle,
+                     nobeforeafter, % See https://mirror.hmc.edu/ctan/macros/latex/contrib/tcolorbox/tcolorbox.pdf
+                     bottomrule=0pt,
+                     toprule=0pt,
+                     leftrule=2pt,
+                     rightrule=0pt,
+                     top=0pt,
+                     bottom=0pt,
+                     halign=left,
+                     left=0pt,
+                     arc=0pt,
+                     outer arc=0pt,
+                     colback={colorBackRemark},
+                     width=\textwidth]%
+       \fontRemark{#1}%
+   \end{tcolorbox}%
 }
 
 % ---------------------------------------------------------------------------------
@@ -349,25 +393,25 @@
           \arrayrulecolor{colorHorizontalTableLines}    
    
           \hline
-          PHP5/7        & Expert             & 20 ans & \faBatteryFull \\
+          PHP5/7        & Expert             & 20 ans & \skillFull\\
           \hline
-          Perl5         & Expert             & 20 ans & \faBatteryFull  \\
+          Perl5         & Expert             & 20 ans & \skillFull  \\
           \hline
-          C             & Expert             & 10 ans & \faBatteryThreeQuarters \\
+          C             & Expert             & 10 ans & \skillThreeQuarters \\
           \hline
-          JavaScript    & Bonne connaissance & 3 ans  & \faBatteryThreeQuarters \\
+          JavaScript    & Bonne connaissance & 3 ans  & \skillThreeQuarters \\
           \hline
-          GO            & Bonne connaissance & 1 ans  & \faBatteryThreeQuarters \\
+          GO            & Bonne connaissance & 1 ans  & \skillThreeQuarters \\
           \hline
-          Python        & Notions            & 6 mois & \faBatteryHalf \\
+          Python        & Notions            & 6 mois & \skillHalf \\
           \hline
-          Java          & Bonne connaissance & 3 ans  & \faBatteryHalf \\
+          Java          & Bonne connaissance & 3 ans  & \skillHalf \\
           \hline
-          C++           & Ancien expert      & 4 ans  & \faBatteryQuarter \\
+          C++           & Ancien expert      & 4 ans  & \skillQuarter \\
           \hline
-          TCL           & Notions            & 6 mois & \faBatteryQuarter \\
+          TCL           & Notions            & 6 mois & \skillQuarter \\
           \hline
-          ActionScript  & Ancien expert      & 1 an   & \faBatteryEmpty \\
+          ActionScript  & Ancien expert      & 1 an   & \skillEmpty \\
           \hline
       \end{tabularx}
    \end{sectionComponent}
@@ -397,19 +441,19 @@
           \arrayrulecolor{colorHorizontalTableLines}    
    
           \hline 
-          Zend V1             & MVC            & PHP               & \faThumbsOUp \\
+          Zend V1             & MVC            & PHP               & \skillThumbsOUp \\
           \hline 
-          Slim V3             & MVC            & PHP               & \faThumbsOUp \\
+          Slim V3             & MVC            & PHP               & \skillThumbsOUp \\
           \hline 
-          Dancer              & MVC            & Perl5             & \faThumbsOUp \\
+          Dancer              & MVC            & Perl5             & \skillThumbsOUp \\
           \hline 
-          JQuery              & DOM+Event      & JavaScript        & \faThumbsOUp \\
+          JQuery              & DOM+Event      & JavaScript        & \skillThumbsOUp \\
           \hline 
-          ELGG                & MVC+Social     & PHP               & \faThumbsODown \\
+          ELGG                & MVC+Social     & PHP               & \skillThumbsODown \\
           \hline 
-          Adobe Flex 3        & MVC            & ActionScript      & \faThumbsODown \\
+          Adobe Flex 3        & MVC            & ActionScript      & \skillThumbsODown \\
           \hline
-          AngularJS V1.5      & MVC            & JavaScript        & \faThumbsODown \\
+          AngularJS V1.5      & MVC            & JavaScript        & \skillThumbsODown \\
           \hline 
       \end{tabularx}
    \end{sectionComponent}
@@ -462,9 +506,13 @@
                 Architecte + Ingénieur d'étude et développement \\
          \end{tabular}%
       \end{packed_tabular}%
-      \par\vspace{10pt}\par
-   
-      \cpname{Cetia Inc} CETIA était le revendeur exclusif des produits Thales aux USA (Massachusetts). En 2000, Cetia a été englobé par Thales.
+   \end{sectionComponent}
+
+   \begin{sectionComponent}
+      \remark{%
+         \cpname{Cetia Inc} était le revendeur exclusif des produits Thales aux USA (Massachusetts).
+         En 2000, Cetia a été englobé par Thales.%
+      }%
    \end{sectionComponent}
 
    % ------------------------------------------------------------------------

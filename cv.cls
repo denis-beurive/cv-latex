@@ -37,6 +37,10 @@
 % WARNING: This package needs the font size named "normalsize" to be defined!
 \usepackage{fontspec}
 
+% The pack­age al­lows the to user se­lect any font size.
+% See https://ctan.org/pkg/anyfontsize
+\usepackage{anyfontsize}
+
 % The fontawesome package grants access to 634 web-related icons provided by the included
 % Font Awesome font, designed by Dave Gandy and released under the open SIL Open Font License.
 % See ftp://ftp.dante.de/tex-archive/fonts/fontawesome/doc/fontawesome.pdf
@@ -57,7 +61,7 @@
 % See https://texfaq.org/FAQ-complist
 \usepackage{enumitem}
 
-% This package is really awasome.
+% This package is really awasome. It is used to draw boxes.
 \usepackage{tcolorbox}
 
 % This package allows simple TF THEN ELSE constructions.
