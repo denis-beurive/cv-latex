@@ -52,23 +52,34 @@
 %   and the last name).
 % - fontPrivateDef: the font that is used to render personal informationi (phone,
 %   address...).
-% - fontCitationDef: the font used to render citations.
+% - fontSectionTitleDef: the font that is used to render the title of a section.
+% - fontSynthesisDef: the font used to render citations.
 % - fontTechnoDef: the font used to render the name of a technological tool.
 %
-% Note:
+% Notes:
 % 
-% Please note that a command is defined for each font. You can apply a font to a
-% text by calling one of the defined command. For example: \fontTechno{PHP}
+% - Please note that a command is defined for each font. You can apply a font to a
+%   text by calling one of the defined command. For example: \fontTechno{PHP}
+% - See https://tex.stackexchange.com/questions/48276/latex-specify-font-point-size
+%   \fontsize{size}{skip}
+%   A rule of thumb is that the baselineskip should be 1.2 times the font size.
+% - Keep in mind that the font definitions below change the font globally if no
+%   special care is taken. 
 % ---------------------------------------------------------------------------------
 
-\newcommand{\fontIdentityDef}{\setmainfont[Ligatures=TeX]{LMRoman6-Regular}}
-\newcommand{\fontPrivateDef}{\setmainfont[Ligatures=TeX]{LMRoman6-Regular}}
-\newcommand{\fontCitationDef}{\setmainfont[Ligatures=TeX]{Accanthis ADF Std Italic}\small}
+\newcommand{\fontIdentityDef}{\setmainfont[Ligatures=TeX]{LMRoman6-Regular}
+   \fontsize{20pt}{24pt}\selectfont}
+\newcommand{\fontPrivateDef}{\setmainfont[Ligatures=TeX]{LMRoman6-Regular}
+   \fontsize{10pt}{12pt}\selectfont}
+\newcommand{\fontSectionTitleDef}{\setmainfont[Ligatures=TeX]{Accanthis ADF Std Bold}
+   \fontsize{10pt}{12pt}\selectfont}
+\newcommand{\fontSynthesisDef}{\setmainfont[Ligatures=TeX]{Accanthis ADF Std Italic}\small}
 \newcommand{\fontTechnoDef}{\setmainfont[Ligatures=TeX]{Ubuntu Mono}}
 
 \DeclareTextFontCommand{\fontIdentity}{\fontIdentityDef}
 \DeclareTextFontCommand{\fontPrivate}{\fontPrivateDef}
-\DeclareTextFontCommand{\fontCitation}{\fontCitationDef}
+\DeclareTextFontCommand{\fontSectionTitle}{\fontSectionTitleDef}
+\DeclareTextFontCommand{\fontSynthesis}{\fontSynthesisDef}
 \DeclareTextFontCommand{\fontTechno}{\fontTechnoDef}
 
 % ---------------------------------------------------------------------------------
@@ -102,7 +113,7 @@
 %
 % Notes:
 %
-% - each element is responsible for applying the required vertical space that
+% - Each element is responsible for applying the required vertical space that
 %   separates it from the element that precedes it.
 % - Each element is responsible for breaking the horizontal (or "paragraphe") mode
 %   at its bottom.
@@ -121,7 +132,7 @@
                      valign=center,
                      width=\textwidth,
                      colback={colorMainSection}]%
-      #1%
+      \fontSectionTitle{#1}%
    \end{tcolorbox}%
    % Break the horizontal mode
    \par% 
@@ -194,31 +205,21 @@
 % Define commands for general text formatting.
 % ---------------------------------------------------------------------------------
 
-% This environment sets the required configuration for a synthesis.
-% Please note that this environment is used exclusively within the command \synthesis.
-\newenvironment{synthesisEnv}{%
-   \fontCitationDef
-}{}
-
 % This command creates a synthesis.
 \newcommand{\synthesis}[1]{%
-   \begin{synthesisEnv}%
-   #1%
-   \end{synthesisEnv}\par%
+   \begingroup
+       \fontSynthesisDef%
+       #1%
+   \endgroup%
 }
-
-% This environment sets the required configuration for the rendering of a technical term.
-% Please note that this environment is used exclusively within the command \techno.
-\newenvironment{technoEnv}{%
-   \fontTechnoDef
-}{}
 
 % This command prints a technical term.
 % Ex: \techno{PHP}
 \newcommand{\techno}[1]{%
-   \begin{technoEnv}%
-   #1% 
-   \end{technoEnv}\par%
+   \begingroup%
+      \fontTechnoDef%
+      #1% 
+   \endgroup%
 }
 
 % This environment prints a "packed list of items".
